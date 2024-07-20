@@ -5,6 +5,7 @@ pipeline {
   } 
   environment {
     SONARQUBE_SCANNER_HOME = tool 'SonarQube-Scanner'
+    SONAR_TOKEN = credentials('sonar-token') // assuming 'sonar-token' is the ID of your SonarQube token stored in Jenkins credentials
   }
   stages {
     stage('build') {
@@ -19,7 +20,7 @@ pipeline {
             ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
             -Dsonar.projectKey=MyProjectApp \
             -Dsonar.host.url=http://3.80.110.90:9000 \
-            -Dsonar.token=sonar-token \
+            -Dsonar.login=${SONAR_TOKEN} \
             -X
           """
         }
