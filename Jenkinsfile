@@ -4,7 +4,7 @@ pipeline {
     maven 'maven3'
   } 
   environment {
-    SONARQUBE_SCANNER_HOME = tool 'SonarQubeScanner'
+    SONARQUBE_SCANNER_HOME = tool 'SonarQube-Scanner'
   }
   stages {
     stage('build') {
