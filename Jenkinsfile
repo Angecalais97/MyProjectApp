@@ -4,7 +4,7 @@ pipeline {
     maven 'maven3'
   } 
   environment {
-    SONARQUBE_SCANNER_HOME = tool 'SonarQube-Scanner'
+    SONARQUBE_SCANNER_HOME = tool 'SonarQubeScanner'
   }
   stages {
     stage('build') {
@@ -15,7 +15,13 @@ pipeline {
     stage('SonarQube analysis') {
       steps {
         withSonarQubeEnv('sonarqube') {
-          sh "${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner"
+          sh """
+            ${SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
+            -Dsonar.projectKey=MyProjectApp \
+            -Dsonar.host.url=http://3.80.110.90:9000 \
+            -Dsonar.login=sonar-token \
+            -X
+          """
         }
       }
     }
